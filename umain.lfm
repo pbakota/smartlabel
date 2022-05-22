@@ -1,0 +1,247 @@
+object Main: TMain
+  Left = 2170
+  Height = 657
+  Top = 250
+  Width = 963
+  Caption = 'Smart Label'
+  ClientHeight = 657
+  ClientWidth = 963
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poDefaultPosOnly
+  object ScrollBox1: TScrollBox
+    Left = 223
+    Height = 657
+    Top = 0
+    Width = 740
+    HorzScrollBar.Page = 400
+    VertScrollBar.Page = 521
+    Align = alClient
+    ClientHeight = 655
+    ClientWidth = 738
+    Color = clGray
+    ParentColor = False
+    TabOrder = 0
+    object PaintBox1: TPaintBox
+      Left = 8
+      Height = 505
+      Top = 8
+      Width = 384
+      BorderSpacing.Around = 8
+      ParentColor = False
+      OnPaint = PaintBox1Paint
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 657
+    Top = 0
+    Width = 218
+    Align = alLeft
+    ClientHeight = 657
+    ClientWidth = 218
+    TabOrder = 1
+    object btnPrint: TButton
+      Left = 16
+      Height = 25
+      Top = 611
+      Width = 180
+      Anchors = [akLeft, akRight, akBottom]
+      Caption = '&Print'
+      OnClick = btnPrintClick
+      TabOrder = 1
+    end
+    object RadioGroup1: TRadioGroup
+      Left = 16
+      Height = 112
+      Top = 192
+      Width = 185
+      Anchors = [akTop, akLeft, akRight]
+      AutoFill = True
+      Caption = 'Layout:'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 86
+      ClientWidth = 179
+      TabOrder = 2
+      object optFrontBack: TRadioButton
+        Left = 6
+        Height = 43
+        Top = 0
+        Width = 167
+        Caption = 'Front + Back'
+        Checked = True
+        OnChange = optDoubleFrontChange
+        TabOrder = 1
+        TabStop = True
+      end
+      object optDoubleFront: TRadioButton
+        Tag = 1
+        Left = 6
+        Height = 43
+        Top = 43
+        Width = 167
+        Caption = 'Double front'
+        OnChange = optDoubleFrontChange
+        TabOrder = 0
+      end
+    end
+    object CheckGroup1: TCheckGroup
+      Left = 16
+      Height = 80
+      Top = 320
+      Width = 185
+      Anchors = [akTop, akLeft, akRight]
+      AutoFill = True
+      Caption = 'Additional file information:'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 54
+      ClientWidth = 179
+      TabOrder = 3
+      object chkSize: TCheckBox
+        Tag = 2
+        Left = 6
+        Height = 42
+        Top = 6
+        Width = 167
+        Caption = 'Size'
+        TabOrder = 0
+      end
+    end
+    object edtPath: TDirectoryEdit
+      Left = 16
+      Height = 25
+      Top = 32
+      Width = 185
+      ShowHidden = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      Anchors = [akTop, akLeft, akRight]
+      MaxLength = 0
+      TabOrder = 4
+    end
+    object Label1: TLabel
+      Left = 16
+      Height = 17
+      Top = 8
+      Width = 33
+      Caption = 'Path:'
+      ParentColor = False
+    end
+    object edtMaxDirLevel: TSpinEdit
+      Left = 16
+      Height = 26
+      Top = 80
+      Width = 50
+      MaxValue = 10
+      MinValue = 1
+      TabOrder = 5
+      Value = 2
+    end
+    object Label2: TLabel
+      Left = 16
+      Height = 17
+      Top = 64
+      Width = 88
+      Caption = 'Max dir level:'
+      ParentColor = False
+    end
+    object btnScan: TButton
+      Left = 16
+      Height = 25
+      Top = 120
+      Width = 185
+      Anchors = [akTop, akLeft, akRight]
+      Caption = 'Scan'
+      Default = True
+      OnClick = btnScanClick
+      TabOrder = 0
+    end
+    object edtColumns: TSpinEdit
+      Left = 16
+      Height = 26
+      Top = 432
+      Width = 50
+      MaxValue = 10
+      MinValue = 1
+      TabOrder = 6
+      Value = 1
+    end
+    object Label3: TLabel
+      Left = 16
+      Height = 17
+      Top = 416
+      Width = 61
+      Caption = 'Columns:'
+      ParentColor = False
+    end
+    object chkSideLabels: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 472
+      Width = 96
+      Caption = 'Side labels'
+      TabOrder = 7
+    end
+    object pbWorking: TProgressBar
+      Left = 16
+      Height = 20
+      Top = 160
+      Width = 185
+      Smooth = True
+      Style = pbstMarquee
+      TabOrder = 8
+      Visible = False
+    end
+    object btnRedraw: TButton
+      Left = 16
+      Height = 25
+      Top = 552
+      Width = 185
+      Anchors = [akTop, akLeft, akRight]
+      Caption = 'Redraw'
+      OnClick = btnRedrawClick
+      TabOrder = 9
+    end
+    object edtSideLabel: TEdit
+      Left = 16
+      Height = 25
+      Top = 496
+      Width = 185
+      Anchors = [akTop, akLeft, akRight]
+      TabOrder = 10
+      Text = 'edtSideLabel'
+    end
+    object chkPlusDate: TCheckBox
+      Left = 134
+      Height = 23
+      Top = 472
+      Width = 67
+      Caption = '+Date'
+      OnChange = chkPlusDateChange
+      TabOrder = 11
+    end
+  end
+  object Splitter1: TSplitter
+    Left = 218
+    Height = 657
+    Top = 0
+    Width = 5
+  end
+  object PrintDialog1: TPrintDialog
+    Left = 560
+    Top = 24
+  end
+end
