@@ -153,6 +153,7 @@ begin
 
     Canvas.Pen.Color := clBlack;
     Canvas.Pen.Style := psSolid;
+    Canvas.Pen.Width := 1;
 
     FrontRect  := Bounds(LeftMargin,                                     TopMargin, CmToX(12.2), CmToY(12.0));
     Front2Rect := Bounds(LeftMargin+CmToX(12.2),                         TopMargin, CmToX(12.2), CmToY(12.0));
@@ -273,7 +274,8 @@ begin
 
     if optDoubleFront.Checked then begin
       Canvas.Pen.Color := clBlack;
-      Canvas.Pen.Style := psSolid;
+      Canvas.Pen.Style := psDashDot;
+      Canvas.Pen.Width := 1;
       Canvas.Line(
         Front2Rect.Left,
         -10 + Front2Rect.Top,

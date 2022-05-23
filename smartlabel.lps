@@ -18,8 +18,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="130"/>
-        <CursorPos X="6" Y="147"/>
+        <TopLine Value="261"/>
+        <CursorPos X="19" Y="279"/>
         <UsageCount Value="52"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -27,15 +27,16 @@
       <Unit>
         <Filename Value="../../fpcupdeluxe/lazarus/lcl/graphics.pp"/>
         <UnitName Value="Graphics"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1068"/>
-        <CursorPos X="15" Y="1084"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="650"/>
+        <CursorPos X="14" Y="674"/>
         <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../fpcupdeluxe/lazarus/lcl/printers.pas"/>
         <UnitName Value="Printers"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="289"/>
         <CursorPos X="15" Y="304"/>
         <UsageCount Value="12"/>
@@ -122,10 +123,11 @@
       <Unit>
         <Filename Value="../../fpcupdeluxe/fpcsrc/packages/fcl-image/src/fpcanvas.pp"/>
         <UnitName Value="FPCanvas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="355"/>
-        <CursorPos X="15" Y="370"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="93"/>
+        <CursorPos X="51" Y="111"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../fpcupdeluxe/fpcsrc/rtl/objpas/sysutils/filutil.inc"/>
@@ -151,22 +153,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="umain.pas"/>
-        <Caret Line="448" Column="19" TopLine="432"/>
-      </Position>
-      <Position>
-        <Filename Value="umain.pas"/>
-        <Caret Line="449" Column="39" TopLine="420"/>
-      </Position>
-      <Position>
-        <Filename Value="umain.pas"/>
-        <Caret Line="207" Column="19" TopLine="178"/>
-      </Position>
-      <Position>
-        <Filename Value="umain.pas"/>
-        <Caret Line="203" Column="65" TopLine="161"/>
-      </Position>
       <Position>
         <Filename Value="umain.pas"/>
         <Caret Line="196" Column="10" TopLine="188"/>
@@ -270,6 +256,22 @@
       <Position>
         <Filename Value="umain.pas"/>
         <Caret Line="147" Column="7" TopLine="130"/>
+      </Position>
+      <Position>
+        <Filename Value="umain.pas"/>
+        <Caret Line="278" Column="30" TopLine="263"/>
+      </Position>
+      <Position>
+        <Filename Value="umain.pas"/>
+        <Caret Line="277" Column="32" TopLine="261"/>
+      </Position>
+      <Position>
+        <Filename Value="../../fpcupdeluxe/lazarus/lcl/graphics.pp"/>
+        <Caret Line="674" Column="14" TopLine="650"/>
+      </Position>
+      <Position>
+        <Filename Value="../../fpcupdeluxe/fpcsrc/packages/fcl-image/src/fpcanvas.pp"/>
+        <Caret Line="149" Column="14" TopLine="132"/>
       </Position>
     </JumpHistory>
     <RunParams>
