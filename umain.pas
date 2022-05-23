@@ -87,10 +87,8 @@ implementation
 
 {$R *.lfm}
 
-uses StrUtils;
-
 const
-  MaxFiles = 2000;
+  MaxFiles = 700;
   // Left/right margins
   LeftMargin = 30; TopMargin = 50;
   // A4 paper size in cm
@@ -146,7 +144,7 @@ end;
 procedure TMain.PaintBox1Paint(Sender: TObject);
 var
   C, R, Front2Rect, FrontRect, LeftRect, MiddleRect, RightRect: TRect;
-  I, H, T: Integer;
+  I, CopyHeight, NextTop: Integer;
 begin
   with FBitmap do begin
     Canvas.Brush.Style := bsSolid;
@@ -166,20 +164,20 @@ begin
     if Assigned(FFilesBitmap) then begin
       Canvas.Brush.Style := bsClear;
       // Calculate height which can fit into FrontRect
-      H := FCellHeight * (FrontRect.Height div FCellHeight);
-      T := 0;
+      CopyHeight := FCellHeight * (FrontRect.Height div FCellHeight);
+      NextTop := 0;
 
       // Render columns
       for I:=0 to edtColumns.Value-1 do begin
-        if H > FFilesBitmap.Height - T then H := FFilesBitmap.Height - T;
+        if CopyHeight > FFilesBitmap.Height - NextTop then CopyHeight := FFilesBitmap.Height - NextTop;
         R := Bounds(
           FrontRect.Left+ I*(FrontRect.Width div edtColumns.Value),
           FrontRect.Top,
           FrontRect.Width div edtColumns.Value,
-          H
+          CopyHeight
         );
-        Canvas.CopyRect(R, FFilesBitmap.Canvas, Bounds(0,T,FrontRect.Width div edtColumns.Value,H));
-        Inc(T,H);
+        Canvas.CopyRect(R, FFilesBitmap.Canvas, Bounds(0,NextTop,FrontRect.Width div edtColumns.Value,CopyHeight));
+        Inc(NextTop,CopyHeight);
       end;
 
       Canvas.Pen.Color := clSilver;
@@ -194,7 +192,7 @@ begin
       end;
 
       // Calculate height which can fit into MiddleRect
-      H := FCellHeight * (MiddleRect.Height div FCellHeight);
+      CopyHeight := FCellHeight * (MiddleRect.Height div FCellHeight);
 
       if optFrontBack.Checked then
         C := MiddleRect;
@@ -203,15 +201,15 @@ begin
 
       // Render columns
       for I:=0 to edtColumns.Value-1 do begin
-        if H > FFilesBitmap.Height - T then H := FFilesBitmap.Height - T;
+        if CopyHeight > FFilesBitmap.Height - NextTop then CopyHeight := FFilesBitmap.Height - NextTop;
         R := Bounds(
           C.Left+ I*(C.Width div edtColumns.Value),
           C.Top,
           C.Width div edtColumns.Value,
-          H
+          CopyHeight
         );
-        Canvas.CopyRect(R, FFilesBitmap.Canvas, Bounds(0,T,C.Width div edtColumns.Value,H));
-        Inc(T,H);
+        Canvas.CopyRect(R, FFilesBitmap.Canvas, Bounds(0,NextTop,C.Width div edtColumns.Value,CopyHeight));
+        Inc(NextTop,CopyHeight);
       end;
 
       Canvas.Pen.Color := clSilver;
@@ -292,7 +290,6 @@ begin
       TopMargin  + 2*(FPaperHeight div 3),
       edtSideLabel.Caption
     );
-
   end;
 
   PaintBox1.Canvas.Draw(0,0,FBitmap);
@@ -338,7 +335,7 @@ begin
   FFilesBitmap := TBitmap.Create;
   FFilesBitmap.SetSize(BitmapWidth, BitmapHeight);
 
-  WriteLn(Format('Fonts bitmap: %dx%d', [BitmapWidth, BitmapHeight]));
+  //WriteLn(Format('Files bitmap: %dx%d', [BitmapWidth, BitmapHeight]));
 
   with FFilesBitmap.Canvas do begin
     Brush.Color := clWhite;
@@ -353,12 +350,10 @@ begin
     RenderList(FTree, 0);
   end;
 
-  FFilesBitmap.SaveToFile('/home/sorel/Desktop/files.bmp');
+  //FFilesBitmap.SaveToFile(GetEnvironmentVariable('HOME') + '/Desktop/files.bmp');
 end;
 
 procedure TMain.FormCreate(Sender: TObject);
-var
-  I: Integer;
 begin
   Width := 1380;
   Height := 820;
@@ -367,8 +362,8 @@ begin
 
   FPaperWidth :=  1123; // 794;
   FPaperHeight := 794; // 1123;
-  WriteLn(Format('Canvas size: %dx%d (%f) 12.2 cm -> %d, 12.0 cm -> %d',
-    [FPaperWidth, FPaperHeight,PaperRatio, CmToX(12.2), CmToY(12.0)]));
+  //WriteLn(Format('Canvas size: %dx%d (%f) 12.2 cm -> %d, 12.0 cm -> %d',
+  //  [FPaperWidth, FPaperHeight,PaperRatio, CmToX(12.2), CmToY(12.0)]));
 
   {
   with Printer.PaperSize do begin
@@ -406,10 +401,10 @@ begin
     BeginDoc;
     try
       Canvas.CopyRect(
-          Rect(0,0,MyPrinter.PaperSize.Width, MyPrinter.PaperSize.Height),
-          FBitmap.Canvas,
-          Rect(0,0,FBitmap.Width, FBitmap.Height)
-        );
+        Rect(0,0,MyPrinter.PaperSize.Width, MyPrinter.PaperSize.Height),
+        FBitmap.Canvas,
+        Rect(0,0,FBitmap.Width, FBitmap.Height)
+      );
     finally
       EndDoc;
     end;

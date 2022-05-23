@@ -9,6 +9,7 @@ object Main: TMain
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poDefaultPosOnly
+  LCLVersion = '2.2.2.0'
   object ScrollBox1: TScrollBox
     Left = 223
     Height = 657
@@ -66,8 +67,8 @@ object Main: TMain
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
-      ClientHeight = 86
-      ClientWidth = 179
+      ClientHeight = 94
+      ClientWidth = 167
       TabOrder = 2
       object optFrontBack: TRadioButton
         Left = 6
@@ -107,8 +108,8 @@ object Main: TMain
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
-      ClientHeight = 54
-      ClientWidth = 179
+      ClientHeight = 62
+      ClientWidth = 167
       TabOrder = 3
       object chkSize: TCheckBox
         Tag = 2

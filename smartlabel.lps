@@ -9,7 +9,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="26"/>
-        <UsageCount Value="51"/>
+        <UsageCount Value="52"/>
       </Unit>
       <Unit>
         <Filename Value="umain.pas"/>
@@ -18,9 +18,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="424"/>
-        <CursorPos X="31" Y="431"/>
-        <UsageCount Value="51"/>
+        <TopLine Value="130"/>
+        <CursorPos X="6" Y="147"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -150,7 +150,7 @@
         <UsageCount Value="9"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="27">
+    <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="umain.pas"/>
         <Caret Line="448" Column="19" TopLine="432"/>
@@ -261,7 +261,15 @@
       </Position>
       <Position>
         <Filename Value="umain.pas"/>
-        <Caret Line="23" TopLine="205"/>
+        <Caret Line="505" Column="32" TopLine="486"/>
+      </Position>
+      <Position>
+        <Filename Value="umain.pas"/>
+        <Caret Line="93" Column="11" TopLine="76"/>
+      </Position>
+      <Position>
+        <Filename Value="umain.pas"/>
+        <Caret Line="147" Column="7" TopLine="130"/>
       </Position>
     </JumpHistory>
     <RunParams>
