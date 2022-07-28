@@ -72,10 +72,12 @@ type
     FTotalCount: Integer;
     FTree: TFileTreeList;
     FCellHeight: Integer;
+    FMaxSizeWidth: Integer;
     procedure RenderFilesBitmap;
     function CmToX(cm: Double): Integer;
     function CmToY(cm: Double): Integer;
     function FilesToTree(Path: string; Pattern: string): TFileTreeList;
+    function PrettyPrintSize(AValue: Int64): string;
   public
 
   end;
@@ -86,6 +88,8 @@ var
 implementation
 
 {$R *.lfm}
+
+uses Math;
 
 const
   MaxFiles = 700;
@@ -177,7 +181,14 @@ begin
           FrontRect.Width div edtColumns.Value,
           CopyHeight
         );
+        // Title
         Canvas.CopyRect(R, FFilesBitmap.Canvas, Bounds(0,NextTop,FrontRect.Width div edtColumns.Value,CopyHeight));
+        if chkSize.Checked then begin
+          // Size
+          R.Left := R.Left + R.Width - FMaxSizeWidth; // Maybe I should put a small gap here on the right side
+          R.Width := FMaxSizeWidth;
+          Canvas.CopyRect(R, FFilesBitmap.Canvas, Bounds(FFilesBitmap.Canvas.Width-FMaxSizeWidth,NextTop,FMaxSizeWidth,CopyHeight));
+        end;
         Inc(NextTop,CopyHeight);
       end;
 
@@ -209,7 +220,14 @@ begin
           C.Width div edtColumns.Value,
           CopyHeight
         );
+        // Title
         Canvas.CopyRect(R, FFilesBitmap.Canvas, Bounds(0,NextTop,C.Width div edtColumns.Value,CopyHeight));
+        if chkSize.Checked then begin
+          // Size
+          R.Left := R.Left + R.Width - FMaxSizeWidth; // Maybe I should put a small gap here on the right side
+          R.Width := FMaxSizeWidth;
+          Canvas.CopyRect(R, FFilesBitmap.Canvas, Bounds(FFilesBitmap.Canvas.Width-FMaxSizeWidth,NextTop,FMaxSizeWidth,CopyHeight));
+        end;
         Inc(NextTop,CopyHeight);
       end;
 
@@ -295,12 +313,28 @@ begin
   end;
 
   PaintBox1.Canvas.Draw(0,0,FBitmap);
+  // PaintBox1.Canvas.Draw(0,FBitmap.Height + 20,FBitmap);
+end;
+
+function TMain.PrettyPrintSize(AValue: Int64): string;
+const
+  Description: Array [0 .. 2] of string = ('B', 'KB', 'MB');
+var
+  i: Integer;
+begin
+  i := 0;
+
+  while AValue > Power(1024, i + 1) do
+    Inc(i);
+
+  Result := FormatFloat('###0.##', AValue / IntPower(1024, i)) + ' ' + Description[i];
 end;
 
 procedure TMain.RenderFilesBitmap;
 var
-  BitmapWidth, BitmapHeight, CellTop: Integer;
+  BitmapWidth, BitmapHeight, CellTop, W: Integer;
   P: PFileTreeEntry;
+  S: string;
 
   procedure RenderList(AList: TFileTreeList; Level: Integer);
   var
@@ -315,7 +349,17 @@ var
           Font.Style := Font.Style - [fsBold];
 
         Brush.Style := bsClear;
+
+        // Name
         TextOut(4+Level*8, CellTop, P^.Name);
+
+        if P^.EntryType = etFile then begin
+          // Size
+          S := PrettyPrintSize(P^.Size);
+          W := TextWidth(S);
+          if W > FMaxSizeWidth then FMaxSizeWidth := W;
+          TextOut(FFilesBitmap.Canvas.Width - W, CellTop, S);
+        end;
 
         Pen.Color := clSilver;
         Line(0,Celltop + FCellHeight-1,BitmapWidth, CellTop + FCellHeight-1);
@@ -328,7 +372,9 @@ var
   end;
 
 begin
-  WriteLn(Format('Total entries: %d, Height: %d', [FTotalCount, -FBitmap.Canvas.Font.Height * FTotalCount]));
+  FMaxSizeWidth := 0;
+
+  WriteLn(Format('Total entries: %d, expected height: %d', [FTotalCount, -FBitmap.Canvas.Font.Height * FTotalCount]));
   if Assigned(FFilesBitmap) then
      FFilesBitmap.Free;
 
@@ -351,6 +397,7 @@ begin
     CellTop := 0;
     RenderList(FTree, 0);
   end;
+  WriteLn(Format('Total entries: %d, bitmap: %dx%d, size width: %d', [FTotalCount, BitmapWidth, BitmapHeight, FMaxSizeWidth]));
 
   //FFilesBitmap.SaveToFile(GetEnvironmentVariable('HOME') + '/Desktop/files.bmp');
 end;
@@ -375,13 +422,14 @@ begin
   end;
   }
 
+  // Set printer default to A4/Landscape
   Printer.PaperSize.PaperName:='A4';
   Printer.Orientation:=poLandscape;
   Printer.PaperSize.DefaultPaperName;
 
   with PaintBox1 do begin
     Width := FPaperWidth;
-    Height := FPaperHeight;
+    Height := FPaperHeight; // (FPaperHeight * 2) + 50;
   end;
   FBitmap.SetSize(FPaperWidth,FPaperHeight);
   FBitmap.Canvas.FillRect(0,0,FBitmap.Width,FBitmap.Height);
